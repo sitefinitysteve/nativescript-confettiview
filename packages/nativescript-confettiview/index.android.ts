@@ -64,7 +64,10 @@ function toPosition(options: ResolvedConfettiOptions): any {
   const { Position } = konfettiRefs();
   const from = new Position.Relative(options.position.x, options.position.y);
   if (options.position.toX != null || options.position.toY != null) {
-    const to = new Position.Relative(options.position.toX ?? options.position.x, options.position.toY ?? options.position.y);
+    const to = new Position.Relative(
+      options.position.toX ?? options.position.x,
+      options.position.toY ?? options.position.y,
+    );
     return from.between(to);
   }
   return from;
@@ -103,7 +106,22 @@ function buildParty(options: ResolvedConfettiOptions): any {
 
   const rotation = options.spin ? new Rotation(true, 1, 0.5, 8, 1.5) : new Rotation(false, 1, 0.5, 8, 1.5);
 
-  return new Party(Math.round(options.angle), Math.round(options.spread), speed, maxSpeed, options.damping, sizes, colors, shapes, Math.round(options.timeToLive), options.fadeOut, toPosition(options), Math.round(options.delay), rotation, toEmitterConfig(options));
+  return new Party(
+    Math.round(options.angle),
+    Math.round(options.spread),
+    speed,
+    maxSpeed,
+    options.damping,
+    sizes,
+    colors,
+    shapes,
+    Math.round(options.timeToLive),
+    options.fadeOut,
+    toPosition(options),
+    Math.round(options.delay),
+    rotation,
+    toEmitterConfig(options),
+  );
 }
 
 export class ConfettiView extends ConfettiViewBase {

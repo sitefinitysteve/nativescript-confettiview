@@ -55,7 +55,10 @@
       "executor": "nx:run-commands"
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "oxlint packages/nativescript-confettiview"
+      }
     }
   }
 }

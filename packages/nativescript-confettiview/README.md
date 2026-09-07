@@ -6,10 +6,10 @@ Confetti for NativeScript, on iOS and Android.
 npm install nativescript-confettiview
 ```
 
-| Platform | Renderer | Native dependency |
-| --- | --- | --- |
-| iOS | `CAEmitterLayer` | none — no CocoaPods, nothing to `pod install` |
-| Android | [Konfetti](https://github.com/DanielMartinus/Konfetti) `2.0.5` | `nl.dionsegijn:konfetti-xml`, pulled in by Gradle |
+| Platform | Renderer                                                       | Native dependency                                 |
+| -------- | -------------------------------------------------------------- | ------------------------------------------------- |
+| iOS      | `CAEmitterLayer`                                               | none — no CocoaPods, nothing to `pod install`     |
+| Android  | [Konfetti](https://github.com/DanielMartinus/Konfetti) `2.0.5` | `nl.dionsegijn:konfetti-xml`, pulled in by Gradle |
 
 Requires NativeScript 9.0 or newer.
 
@@ -49,7 +49,7 @@ import { createApp, registerElement } from 'nativescript-vue';
 registerElement('ConfettiView', () => require('nativescript-confettiview').ConfettiView);
 ```
 
-```html
+```vue
 <template>
   <Page>
     <GridLayout rows="auto, *">
@@ -63,13 +63,13 @@ registerElement('ConfettiView', () => require('nativescript-confettiview').Confe
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'nativescript-vue';
+import { ref } from 'nativescript-vue';
 
-  const confetti = ref(null);
+const confetti = ref(null);
 
-  function celebrate() {
-    confetti.value.nativeView.start({ mode: 'explode' });
-  }
+function celebrate() {
+  confetti.value.nativeView.start({ mode: 'explode' });
+}
 </script>
 ```
 
@@ -78,12 +78,12 @@ registerElement('ConfettiView', () => require('nativescript-confettiview').Confe
 Each mode is a preset of the options below. Both platforms read the same
 numbers, so a mode looks the same on iOS and Android.
 
-| Mode | What it does |
-| --- | --- |
-| `rain` | Falls from the full width of the top edge. |
-| `burst` | A directional shot upwards from the bottom centre. |
-| `explode` | A radial pop outwards from a point. |
-| `stream` | A diagonal parade from the left edge. |
+| Mode      | What it does                                       |
+| --------- | -------------------------------------------------- |
+| `rain`    | Falls from the full width of the top edge.         |
+| `burst`   | A directional shot upwards from the bottom centre. |
+| `explode` | A radial pop outwards from a point.                |
+| `stream`  | A diagonal parade from the left edge.              |
 
 ```ts
 confetti.start({ mode: 'rain' });
@@ -104,19 +104,19 @@ like two cannons firing from opposite corners.
 
 ## Methods
 
-| Method | Description |
-| --- | --- |
+| Method            | Description                                                 |
+| ----------------- | ----------------------------------------------------------- |
 | `start(options?)` | Begin a party. Call it repeatedly to layer several at once. |
-| `stop()` | Stop emitting; confetti already on screen finishes falling. |
-| `reset()` | Clear everything immediately. |
-| `isActive` | `true` while particles are still emitting or rendering. |
+| `stop()`          | Stop emitting; confetti already on screen finishes falling. |
+| `reset()`         | Clear everything immediately.                               |
+| `isActive`        | `true` while particles are still emitting or rendering.     |
 
 ## Events
 
-| Event | Fires when |
-| --- | --- |
-| `confettiStart` | A party begins emitting. |
-| `confettiEnd` | The last active party finishes. |
+| Event           | Fires when                      |
+| --------------- | ------------------------------- |
+| `confettiStart` | A party begins emitting.        |
+| `confettiEnd`   | The last active party finishes. |
 
 ## Options
 
@@ -124,24 +124,24 @@ Every field is optional. Values are merged in this order, each layer winning
 over the one before it: built-in defaults → the mode preset → properties set on
 the view → the object passed to `start()`.
 
-| Option | Type | Description |
-| --- | --- | --- |
-| `mode` | `'rain' \| 'burst' \| 'explode' \| 'stream'` | Preset to build on. |
-| `colors` | `(string \| Color)[]` | Particles pick one at random. |
-| `shapes` | `('square' \| 'circle' \| 'rectangle')[]` | Particles pick one at random. Defaults to `['rectangle', 'rectangle', 'square']` — paper strips with squares mixed in. Repeating an entry weights it. |
-| `sizes` | `number[]` | Particle sizes in DIPs. Defaults to `[7, 10, 13]`. A `rectangle` is this wide and 40% as tall. |
-| `angle` | `number` | Direction in degrees: `0` right, `90` down, `180` left, `270` up. |
-| `spread` | `number` | Width of the spray in degrees. `1` is a line, `360` a full circle. |
-| `speed` / `maxSpeed` | `number` | Launch speed. When `maxSpeed` is higher, each particle picks a random speed between the two. |
-| `damping` | `number` | Drag applied after launch. **Android only** — see below. |
-| `timeToLive` | `number` | Particle lifetime in milliseconds. |
-| `fadeOut` | `boolean` | Fade particles out instead of popping them off. |
-| `spin` | `boolean` | Tumble particles as they travel. |
-| `position` | `{ x, y, toX?, toY? }` | Spawn point relative to the view, `0`–`1`. Supply `toX`/`toY` to spawn along a line. |
-| `duration` | `number` | How long to emit, in milliseconds. `0` emits until `stop()`. |
-| `emissionRate` | `number` | Particles per second. Ignored when `count` is set. |
-| `count` | `number` | Total particles across `duration`. Takes precedence over `emissionRate`. |
-| `delay` | `number` | Milliseconds to wait before the first particle. |
+| Option               | Type                                         | Description                                                                                                                                           |
+| -------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`               | `'rain' \| 'burst' \| 'explode' \| 'stream'` | Preset to build on.                                                                                                                                   |
+| `colors`             | `(string \| Color)[]`                        | Particles pick one at random.                                                                                                                         |
+| `shapes`             | `('square' \| 'circle' \| 'rectangle')[]`    | Particles pick one at random. Defaults to `['rectangle', 'rectangle', 'square']` — paper strips with squares mixed in. Repeating an entry weights it. |
+| `sizes`              | `number[]`                                   | Particle sizes in DIPs. Defaults to `[7, 10, 13]`. A `rectangle` is this wide and 40% as tall.                                                        |
+| `angle`              | `number`                                     | Direction in degrees: `0` right, `90` down, `180` left, `270` up.                                                                                     |
+| `spread`             | `number`                                     | Width of the spray in degrees. `1` is a line, `360` a full circle.                                                                                    |
+| `speed` / `maxSpeed` | `number`                                     | Launch speed. When `maxSpeed` is higher, each particle picks a random speed between the two.                                                          |
+| `damping`            | `number`                                     | Drag applied after launch. **Android only** — see below.                                                                                              |
+| `timeToLive`         | `number`                                     | Particle lifetime in milliseconds.                                                                                                                    |
+| `fadeOut`            | `boolean`                                    | Fade particles out instead of popping them off.                                                                                                       |
+| `spin`               | `boolean`                                    | Tumble particles as they travel.                                                                                                                      |
+| `position`           | `{ x, y, toX?, toY? }`                       | Spawn point relative to the view, `0`–`1`. Supply `toX`/`toY` to spawn along a line.                                                                  |
+| `duration`           | `number`                                     | How long to emit, in milliseconds. `0` emits until `stop()`.                                                                                          |
+| `emissionRate`       | `number`                                     | Particles per second. Ignored when `count` is set.                                                                                                    |
+| `count`              | `number`                                     | Total particles across `duration`. Takes precedence over `emissionRate`.                                                                              |
+| `delay`              | `number`                                     | Milliseconds to wait before the first particle.                                                                                                       |
 
 ### Properties
 
@@ -179,14 +179,14 @@ Two options behave differently because the underlying renderers do:
 `com.github.jinatonic.confetti` library on Android. Both are gone, and the API
 changed with them.
 
-| 3.x | 4.x |
-| --- | --- |
-| `startConfetti()` | `start(options?)` |
-| `stopConfetti()` | `stop()`, or `reset()` to clear immediately |
-| `intensity` (default `0.5`) | `intensity` (default `1`, a plain multiplier) |
-| `fullScreen` | Removed — put the view in a `GridLayout` and span the rows |
-| `ConfettiView.Types` | `shapes: ['square' \| 'circle' \| 'rectangle']` |
-| extends `ContentView` | extends `View` — it is an overlay and takes no children |
+| 3.x                         | 4.x                                                        |
+| --------------------------- | ---------------------------------------------------------- |
+| `startConfetti()`           | `start(options?)`                                          |
+| `stopConfetti()`            | `stop()`, or `reset()` to clear immediately                |
+| `intensity` (default `0.5`) | `intensity` (default `1`, a plain multiplier)              |
+| `fullScreen`                | Removed — put the view in a `GridLayout` and span the rows |
+| `ConfettiView.Types`        | `shapes: ['square' \| 'circle' \| 'rectangle']`            |
+| extends `ContentView`       | extends `View` — it is an overlay and takes no children    |
 
 The iOS Podfile is gone, so an existing project can drop `pod` troubleshooting
 and any `SWIFT_VERSION` overrides that were added for it.

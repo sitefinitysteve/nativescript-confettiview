@@ -319,10 +319,16 @@ export const intensityProperty = new Property<ConfettiViewBase, number>({
 });
 intensityProperty.register(ConfettiViewBase);
 
-export const durationProperty = new Property<ConfettiViewBase, number>({ name: 'duration', valueConverter: parseFloat });
+export const durationProperty = new Property<ConfettiViewBase, number>({
+  name: 'duration',
+  valueConverter: parseFloat,
+});
 durationProperty.register(ConfettiViewBase);
 
-export const emissionRateProperty = new Property<ConfettiViewBase, number>({ name: 'emissionRate', valueConverter: parseFloat });
+export const emissionRateProperty = new Property<ConfettiViewBase, number>({
+  name: 'emissionRate',
+  valueConverter: parseFloat,
+});
 emissionRateProperty.register(ConfettiViewBase);
 
 export const countProperty = new Property<ConfettiViewBase, number>({ name: 'count', valueConverter: parseFloat });
@@ -334,10 +340,16 @@ angleProperty.register(ConfettiViewBase);
 export const spreadProperty = new Property<ConfettiViewBase, number>({ name: 'spread', valueConverter: parseFloat });
 spreadProperty.register(ConfettiViewBase);
 
-export const timeToLiveProperty = new Property<ConfettiViewBase, number>({ name: 'timeToLive', valueConverter: parseFloat });
+export const timeToLiveProperty = new Property<ConfettiViewBase, number>({
+  name: 'timeToLive',
+  valueConverter: parseFloat,
+});
 timeToLiveProperty.register(ConfettiViewBase);
 
-export const fadeOutProperty = new Property<ConfettiViewBase, boolean>({ name: 'fadeOut', valueConverter: booleanConverter });
+export const fadeOutProperty = new Property<ConfettiViewBase, boolean>({
+  name: 'fadeOut',
+  valueConverter: booleanConverter,
+});
 fadeOutProperty.register(ConfettiViewBase);
 
 export const spinProperty = new Property<ConfettiViewBase, boolean>({ name: 'spin', valueConverter: booleanConverter });

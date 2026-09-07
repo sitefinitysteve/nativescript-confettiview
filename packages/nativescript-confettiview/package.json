@@ -2,29 +2,22 @@
   "name": "nativescript-confettiview",
   "version": "4.0.0",
   "description": "Confetti for NativeScript. Konfetti on Android, CAEmitterLayer on iOS, no CocoaPods.",
-  "main": "index",
-  "typings": "index.d.ts",
-  "nativescript": {
-    "platforms": {
-      "ios": "9.0.0",
-      "android": "9.0.0"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sitefinitysteve/nativescript-confettiview.git"
-  },
   "keywords": [
-    "NativeScript",
-    "JavaScript",
-    "TypeScript",
-    "iOS",
     "Android",
-    "confetti",
-    "particles",
+    "JavaScript",
+    "NativeScript",
+    "TypeScript",
     "animation",
-    "konfetti"
+    "confetti",
+    "iOS",
+    "konfetti",
+    "particles"
   ],
+  "homepage": "https://github.com/sitefinitysteve/nativescript-confettiview",
+  "bugs": {
+    "url": "https://github.com/sitefinitysteve/nativescript-confettiview/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Steve McNiven-Scott"
   },
@@ -38,11 +31,18 @@
       "email": "walkerrunpdx@gmail.com"
     }
   ],
-  "bugs": {
-    "url": "https://github.com/sitefinitysteve/nativescript-confettiview/issues"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sitefinitysteve/nativescript-confettiview.git"
   },
-  "license": "MIT",
-  "homepage": "https://github.com/sitefinitysteve/nativescript-confettiview",
-  "readmeFilename": "README.md",
-  "bootstrapper": "@nativescript/plugin-seed"
+  "main": "index",
+  "typings": "index.d.ts",
+  "bootstrapper": "@nativescript/plugin-seed",
+  "nativescript": {
+    "platforms": {
+      "ios": "9.0.0",
+      "android": "9.0.0"
+    }
+  },
+  "readmeFilename": "README.md"
 }

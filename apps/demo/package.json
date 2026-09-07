@@ -1,8 +1,8 @@
 {
-  "main": "./src/app.ts",
   "description": "nativescript-confettiview demo",
   "license": "MIT",
   "repository": "https://github.com/sitefinitysteve/nativescript-confettiview",
+  "main": "./src/app.ts",
   "dependencies": {
     "@nativescript/core": "file:../../node_modules/@nativescript/core",
     "nativescript-confettiview": "file:../../packages/nativescript-confettiview"

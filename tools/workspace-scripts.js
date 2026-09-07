@@ -8,8 +8,8 @@ module.exports = {
       description: 'Execute any command with the Nx cli',
     },
     format: {
-      script: 'nx format:write',
-      description: 'Format source code of the entire workspace (auto-run on precommit hook)',
+      script: 'oxfmt',
+      description: 'Format the workspace with oxfmt (also runs on pre-commit)',
     },
     '🔧': {
       script: `npx cowsay "Run the demo to see confetti 🎊"`,

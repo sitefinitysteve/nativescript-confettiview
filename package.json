@@ -1,8 +1,8 @@
 {
   "name": "nativescript-confettiview-workspace",
   "version": "0.0.0",
-  "license": "MIT",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "postinstall": "husky && npx ts-patch install",
     "setup": "npx rimraf node_modules package-lock.json dist tmp && npm install",
@@ -16,7 +16,10 @@
     "build": "nx run-many --target=build.all --all",
     "demo.ios": "nx debug demo ios",
     "demo.android": "nx debug demo android",
-    "clean": "nx clean demo"
+    "clean": "nx clean demo",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check"
   },
   "devDependencies": {
     "@nativescript/core": "~9.1.0",
@@ -24,6 +27,8 @@
     "@nativescript/types": "~9.1.0",
     "@nativescript/webpack": "~5.0.38",
     "husky": "~9.0.0",
+    "oxfmt": "^0.67.0",
+    "oxlint": "^1.82.0",
     "sass": "1.53.0",
     "typescript": "~5.6.0"
   },
@@ -31,8 +36,11 @@
     "sass": "1.53.0"
   },
   "lint-staged": {
-    "**/*.{js,ts,scss,json,html}": [
-      "npx prettier --write"
+    "**/*.{js,ts,scss,json,html,md}": [
+      "oxfmt"
+    ],
+    "**/*.{js,ts}": [
+      "oxlint"
     ]
   }
 }

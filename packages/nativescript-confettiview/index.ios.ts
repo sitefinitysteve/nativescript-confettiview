@@ -119,7 +119,9 @@ export class ConfettiView extends ConfettiViewBase {
   }
 
   stop(): void {
-    for (const party of [...this._parties]) {
+    // removeParty splices _parties, so iterate a snapshot.
+    const parties = this._parties.slice();
+    for (const party of parties) {
       if (party.layer) {
         this.endEmission(party);
       } else {
@@ -234,7 +236,8 @@ export class ConfettiView extends ConfettiViewBase {
 
     // One cell per colour/shape pairing; size and speed vary within each cell.
     const cellCount = options.colors.length * options.shapes.length;
-    const totalBirthRate = options.count != null ? (options.count / Math.max(options.duration, 1)) * 1000 : (options.emissionRate ?? 60);
+    const totalBirthRate =
+      options.count != null ? (options.count / Math.max(options.duration, 1)) * 1000 : (options.emissionRate ?? 60);
     const perCellBirthRate = totalBirthRate / cellCount;
 
     const cells: CAEmitterCell[] = [];
