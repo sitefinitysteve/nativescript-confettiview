@@ -155,7 +155,12 @@ usable from XML and Vue templates:
 ```
 
 `intensity` multiplies whatever `emissionRate` or `count` is in effect. `1`
-leaves the preset alone.
+leaves the preset alone. It is not clamped — the presets sit around 150–200
+particles on screen, so `intensity: 10` is a few thousand and will show.
+
+`maxParties` (default `5`) caps how many parties run at once. Starting another
+evicts the oldest, so a button that gets hammered cannot stack emitters and
+drag the frame rate down.
 
 ## Platform differences
 

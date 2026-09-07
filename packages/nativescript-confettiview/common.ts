@@ -193,6 +193,12 @@ export abstract class ConfettiViewBase extends View {
   timeToLive: number;
   fadeOut: boolean;
   spin: boolean;
+  /**
+   * How many parties may run at once. Starting another evicts the oldest, so a
+   * button that gets hammered cannot pile up emitters and drag the frame rate
+   * down. Layered effects like twin cannons fit comfortably under the default.
+   */
+  maxParties: number;
 
   /** Begin a party. Options are merged over the mode preset and the view's properties. */
   abstract start(options?: ConfettiOptions): void;
@@ -325,3 +331,12 @@ fadeOutProperty.register(ConfettiViewBase);
 
 export const spinProperty = new Property<ConfettiViewBase, boolean>({ name: 'spin', valueConverter: booleanConverter });
 spinProperty.register(ConfettiViewBase);
+
+export const DEFAULT_MAX_PARTIES = 5;
+
+export const maxPartiesProperty = new Property<ConfettiViewBase, number>({
+  name: 'maxParties',
+  defaultValue: DEFAULT_MAX_PARTIES,
+  valueConverter: (v) => Math.max(1, parseInt(v, 10) || DEFAULT_MAX_PARTIES),
+});
+maxPartiesProperty.register(ConfettiViewBase);

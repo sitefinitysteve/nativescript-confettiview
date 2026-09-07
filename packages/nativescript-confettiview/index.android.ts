@@ -181,6 +181,12 @@ export class ConfettiView extends ConfettiViewBase {
       return;
     }
 
+    // Evict the oldest parties so a hammered trigger cannot stack emitters.
+    while (this._activeParties.length >= Math.max(1, this.maxParties)) {
+      const oldest = this._activeParties.shift();
+      this.nativeViewProtected.stop(oldest);
+    }
+
     const party = buildParty(this.resolveOptions(options));
     this._activeParties.push(party);
     this.nativeViewProtected.start(party);

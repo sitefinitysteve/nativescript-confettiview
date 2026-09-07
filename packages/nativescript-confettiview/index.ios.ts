@@ -139,6 +139,13 @@ export class ConfettiView extends ConfettiViewBase {
 
     this.nativeViewProtected.layer.addSublayer(layer);
 
+    // Evict the oldest parties so a hammered trigger cannot stack emitters.
+    while (this._parties.length >= Math.max(1, this.maxParties)) {
+      const oldest = this._parties.shift();
+      oldest.timers.forEach((t) => Utils.clearTimeout(t));
+      oldest.layer?.removeFromSuperlayer();
+    }
+
     const party: ConfettiParty = { layer, options, timers: [] };
     this._parties.push(party);
     this.notifyConfettiStart();
