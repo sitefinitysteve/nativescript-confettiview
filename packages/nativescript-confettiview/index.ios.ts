@@ -83,7 +83,10 @@ export class ConfettiView extends ConfettiViewBase {
     CATransaction.begin();
     CATransaction.setDisableActions(true);
     for (const party of this._parties) {
-      this.positionEmitter(party.layer, party.options);
+      // Delayed starts sit in the list as placeholders with no layer yet.
+      if (party.layer) {
+        this.positionEmitter(party.layer, party.options);
+      }
     }
     CATransaction.commit();
   }
@@ -94,27 +97,55 @@ export class ConfettiView extends ConfettiViewBase {
     }
 
     const resolved = this.resolveOptions(options);
-    const begin = () => {
-      if (!this.nativeViewProtected) {
-        return;
-      }
+    if (resolved.delay <= 0) {
       this.startParty(resolved);
-    };
-
-    if (resolved.delay > 0) {
-      const timer = Utils.setTimeout(begin, resolved.delay);
-      // Held on a placeholder party so `reset()` can cancel a delayed start.
-      this._parties.push({ layer: null, options: resolved, timers: [timer] });
-    } else {
-      begin();
+      return;
     }
+
+    // A delayed start is held as a placeholder party (no layer yet) so that
+    // reset()/stop() can cancel it and so it counts towards maxParties. It is
+    // swapped for the real party when the timer fires.
+    this.evictToFit();
+    const placeholder: ConfettiParty = { layer: null, options: resolved, timers: [] };
+    placeholder.timers.push(
+      Utils.setTimeout(() => {
+        this.removeParty(placeholder);
+        if (this.nativeViewProtected) {
+          this.startParty(resolved);
+        }
+      }, resolved.delay),
+    );
+    this._parties.push(placeholder);
   }
 
   stop(): void {
-    for (const party of this._parties) {
+    for (const party of [...this._parties]) {
       if (party.layer) {
         this.endEmission(party);
+      } else {
+        // A party that has not started yet has nothing to let fall; drop it.
+        this.removeParty(party);
       }
+    }
+    if (this._parties.length === 0) {
+      this.notifyConfettiEnd();
+    }
+  }
+
+  /** Tear a party down (timers and layer) and forget it. */
+  private removeParty(party: ConfettiParty): void {
+    party.timers.forEach((t) => Utils.clearTimeout(t));
+    party.layer?.removeFromSuperlayer();
+    const index = this._parties.indexOf(party);
+    if (index > -1) {
+      this._parties.splice(index, 1);
+    }
+  }
+
+  /** Evict the oldest parties so a hammered trigger cannot stack emitters. */
+  private evictToFit(): void {
+    while (this._parties.length >= Math.max(1, this.maxParties)) {
+      this.removeParty(this._parties[0]);
     }
   }
 
@@ -139,12 +170,7 @@ export class ConfettiView extends ConfettiViewBase {
 
     this.nativeViewProtected.layer.addSublayer(layer);
 
-    // Evict the oldest parties so a hammered trigger cannot stack emitters.
-    while (this._parties.length >= Math.max(1, this.maxParties)) {
-      const oldest = this._parties.shift();
-      oldest.timers.forEach((t) => Utils.clearTimeout(t));
-      oldest.layer?.removeFromSuperlayer();
-    }
+    this.evictToFit();
 
     const party: ConfettiParty = { layer, options, timers: [] };
     this._parties.push(party);
@@ -165,11 +191,7 @@ export class ConfettiView extends ConfettiViewBase {
     party.layer.birthRate = 0;
     party.timers.push(
       Utils.setTimeout(() => {
-        party.layer?.removeFromSuperlayer();
-        const index = this._parties.indexOf(party);
-        if (index > -1) {
-          this._parties.splice(index, 1);
-        }
+        this.removeParty(party);
         if (this._parties.length === 0) {
           this.notifyConfettiEnd();
         }

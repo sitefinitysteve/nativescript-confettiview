@@ -1,4 +1,4 @@
-import { ConfettiMode, ConfettiOptions, ConfettiView } from 'nativescript-confettiview';
+import { ConfettiMode, ConfettiOptions, ConfettiShape, ConfettiView } from 'nativescript-confettiview';
 import { DemoSharedBase } from '../utils';
 
 /**

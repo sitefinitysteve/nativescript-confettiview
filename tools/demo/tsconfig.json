@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@nativescript/*": ["../../packages/*"]
+      "@nativescript/*": ["../../packages/*"],
+      "nativescript-confettiview": ["../../packages/nativescript-confettiview/index.d.ts"]
     }
   }
 }

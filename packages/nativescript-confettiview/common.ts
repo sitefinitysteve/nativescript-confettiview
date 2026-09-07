@@ -235,22 +235,32 @@ export abstract class ConfettiViewBase extends View {
       spin: this.spin,
     };
 
-    const merged: ResolvedConfettiOptions = { ...BASE_OPTIONS, ...preset, mode } as ResolvedConfettiOptions;
-    for (const source of [fromProps, options ?? {}]) {
+    const merged = { mode } as ResolvedConfettiOptions;
+    for (const source of [BASE_OPTIONS, preset, fromProps, options ?? {}] as ConfettiOptions[]) {
       for (const key of Object.keys(source)) {
         const value = source[key];
         if (value !== undefined && value !== null) {
           merged[key] = value;
         }
       }
+      // `count` and `emissionRate` are mutually exclusive. Whichever a layer
+      // sets wins over the other from any earlier layer, so a preset's `count`
+      // is not wiped out by the base defaults' `emissionRate`, and a caller's
+      // `emissionRate` still overrides a preset's `count`. Count wins if one
+      // layer supplies both.
+      if (source.count != null) {
+        delete merged.emissionRate;
+      } else if (source.emissionRate != null) {
+        delete merged.count;
+      }
     }
 
-    // `count` and `emissionRate` are mutually exclusive; whichever the caller set
-    // last wins, so clear the other to avoid the native layers disagreeing.
-    if (options?.count != null || (fromProps.count != null && options?.emissionRate == null)) {
-      delete merged.emissionRate;
-    } else if (merged.emissionRate != null) {
-      delete merged.count;
+    // A count needs a finite window to be spread over; an endless count-based
+    // party would be an infinite birth rate. Konfetti also needs at least one
+    // millisecond per particle (see the Android emitter config).
+    if (merged.count != null) {
+      merged.count = Math.max(1, Math.round(merged.count));
+      merged.duration = Math.max(merged.duration > 0 ? merged.duration : 0, merged.count);
     }
 
     merged.colors = toColorList(merged.colors) ?? BASE_OPTIONS.colors;
@@ -261,6 +271,7 @@ export abstract class ConfettiViewBase extends View {
     if (intensity !== 1) {
       if (merged.count != null) {
         merged.count = Math.max(1, Math.round(merged.count * intensity));
+        merged.duration = Math.max(merged.duration, merged.count);
       }
       if (merged.emissionRate != null) {
         merged.emissionRate = Math.max(1, merged.emissionRate * intensity);
