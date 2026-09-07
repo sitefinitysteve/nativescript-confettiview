@@ -53,6 +53,29 @@ $accent: #f4306d;
   margin-bottom: 16;
 }
 
+.shape-picker {
+  margin-bottom: 8;
+}
+
+.chip {
+  background-color: #2a2635;
+  color: #a49db8;
+  font-size: 14;
+  font-weight: 600;
+  padding: 10 4;
+  margin: 0 4;
+  border-radius: 10;
+  border-width: 1;
+  border-color: #3a3546;
+  text-transform: none;
+}
+
+.chip-on {
+  background-color: #3d2740;
+  color: #ffffff;
+  border-color: $accent;
+}
+
 .status {
   font-size: 13;
   color: #a49db8;

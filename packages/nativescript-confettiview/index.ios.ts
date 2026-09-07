@@ -213,6 +213,11 @@ export class ConfettiView extends ConfettiViewBase {
       for (const shape of options.shapes) {
         const cell = CAEmitterCell.emitterCell();
         cell.contents = shapeImage(shape);
+        // The shape images are rasterised at the device scale, but a cell's
+        // contentsScale defaults to 1 — without this the particles render at
+        // their pixel dimensions and come out 2-3x larger than `sizes` asks
+        // for, which would also put iOS out of step with Android.
+        cell.contentsScale = UIScreen.mainScreen.scale;
         cell.color = color.ios.CGColor;
         cell.birthRate = perCellBirthRate;
         cell.lifetime = lifetime;

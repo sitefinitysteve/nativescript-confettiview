@@ -1,5 +1,5 @@
 import { EventData, Observable, Page } from '@nativescript/core';
-import { ConfettiView } from 'nativescript-confettiview';
+import { ConfettiShape, ConfettiView } from 'nativescript-confettiview';
 import { DemoSharedNativescriptConfettiview } from '@demo/shared';
 
 export function navigatingTo(args: EventData) {
@@ -14,17 +14,41 @@ export function navigatedFrom(args: EventData) {
   (page.getViewById('confetti') as ConfettiView)?.reset();
 }
 
+/** Model property -> the shape that chip toggles. */
+const SHAPE_CHIPS: Array<[string, ConfettiShape]> = [
+  ['shapeRectangle', 'rectangle'],
+  ['shapeSquare', 'square'],
+  ['shapeCircle', 'circle'],
+];
+
 class DemoModel extends Observable {
   private demo = new DemoSharedNativescriptConfettiview();
 
   constructor(private page: Page) {
     super();
     this.set('status', 'Idle');
+    this.set('shapeRectangle', true);
+    this.set('shapeSquare', false);
+    this.set('shapeCircle', false);
+    this.syncShapes();
+  }
+
+  private toggle(property: string): void {
+    this.set(property, !this.get(property));
+    this.syncShapes();
+  }
+
+  private syncShapes(): void {
+    this.demo.shapes = SHAPE_CHIPS.filter(([prop]) => this.get(prop)).map(([, shape]) => shape);
   }
 
   private get confetti(): ConfettiView {
     return this.page.getViewById('confetti') as ConfettiView;
   }
+
+  onToggleRectangle = () => this.toggle('shapeRectangle');
+  onToggleSquare = () => this.toggle('shapeSquare');
+  onToggleCircle = () => this.toggle('shapeCircle');
 
   onRain = () => this.demo.play(this.confetti, 'rain');
   onBurst = () => this.demo.play(this.confetti, 'burst');

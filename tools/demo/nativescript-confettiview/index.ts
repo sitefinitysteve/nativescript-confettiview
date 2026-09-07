@@ -6,11 +6,20 @@ import { DemoSharedBase } from '../utils';
  * decides what to ask it for.
  */
 export class DemoSharedNativescriptConfettiview extends DemoSharedBase {
+  /**
+   * Shapes ticked in the demo UI, applied to every party so you can compare
+   * them. Empty means "don't override", which falls back to the plugin default.
+   */
+  shapes: ConfettiShape[] = ['rectangle'];
+
+  private get shapeOverride(): ConfettiShape[] | undefined {
+    return this.shapes.length ? this.shapes : undefined;
+  }
+
   /** A hand-tuned party that ignores the presets, to exercise the options API. */
   static readonly customParty: ConfettiOptions = {
     mode: 'explode',
     colors: ['#ffd166', '#06d6a0', '#118ab2', '#ef476f', '#ffffff'],
-    shapes: ['circle', 'rectangle'],
     sizes: [8, 12, 16],
     spread: 360,
     speed: 5,
@@ -35,11 +44,16 @@ export class DemoSharedNativescriptConfettiview extends DemoSharedBase {
   }
 
   play(view: ConfettiView, mode: ConfettiMode): void {
-    this.replace(view, () => view.start({ mode }));
+    this.replace(view, () => view.start({ mode, shapes: this.shapeOverride }));
   }
 
   playCustom(view: ConfettiView): void {
-    this.replace(view, () => view.start(DemoSharedNativescriptConfettiview.customParty));
+    this.replace(view, () =>
+      view.start({
+        ...DemoSharedNativescriptConfettiview.customParty,
+        shapes: this.shapeOverride,
+      }),
+    );
   }
 
   /**
@@ -55,6 +69,7 @@ export class DemoSharedNativescriptConfettiview extends DemoSharedBase {
         position: { x: 0, y: 1 },
         count: 40,
         duration: 450,
+        shapes: this.shapeOverride,
       });
       view.start({
         mode: 'burst',
@@ -63,13 +78,14 @@ export class DemoSharedNativescriptConfettiview extends DemoSharedBase {
         position: { x: 1, y: 1 },
         count: 40,
         duration: 450,
+        shapes: this.shapeOverride,
       });
     });
   }
 
   /** `duration: 0` opts out of the preset's bounded emission and runs until stopped. */
   playEndless(view: ConfettiView): void {
-    this.replace(view, () => view.start({ mode: 'rain', duration: 0 }));
+    this.replace(view, () => view.start({ mode: 'rain', duration: 0, shapes: this.shapeOverride }));
   }
 
   stop(view: ConfettiView): void {

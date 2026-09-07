@@ -8,7 +8,16 @@
   <GridLayout rows="auto, *">
     <ScrollView row="1" col="0">
       <StackLayout class="p-20">
-        <Label text="Presets" class="title"/>
+        <Label text="Shapes" class="title"/>
+        <Label text="Applied to every effect below. Untick all to use the plugin default." class="subtitle" textWrap="true"/>
+
+        <GridLayout columns="*, *, *" class="shape-picker">
+          <Button col="0" text="{{ shapeRectangle ? '✓ Strip' : 'Strip' }}" tap="{{ onToggleRectangle }}" class="{{ shapeRectangle ? 'chip chip-on' : 'chip' }}"/>
+          <Button col="1" text="{{ shapeSquare ? '✓ Square' : 'Square' }}" tap="{{ onToggleSquare }}" class="{{ shapeSquare ? 'chip chip-on' : 'chip' }}"/>
+          <Button col="2" text="{{ shapeCircle ? '✓ Circle' : 'Circle' }}" tap="{{ onToggleCircle }}" class="{{ shapeCircle ? 'chip chip-on' : 'chip' }}"/>
+        </GridLayout>
+
+        <Label text="Presets" class="title" marginTop="20"/>
         <Label text="Same numbers drive both platforms." class="subtitle" textWrap="true"/>
 
         <Button text="Rain" tap="{{ onRain }}" class="btn"/>
