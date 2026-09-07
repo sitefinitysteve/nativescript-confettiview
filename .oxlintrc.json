@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-underscore-dangle": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/triple-slash-reference": "off",
+    "no-undef": "off"
+  },
+  "ignorePatterns": ["dist", "node_modules", "platforms", "hooks", ".nx", "**/*.d.ts", "tools/scripts/build-finish.ts"]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "nativescript-confettiview",
+  "version": "4.0.0",
+  "description": "Confetti for NativeScript. Konfetti on Android, CAEmitterLayer on iOS, no CocoaPods.",
+  "keywords": [
+    "Android",
+    "JavaScript",
+    "NativeScript",
+    "TypeScript",
+    "animation",
+    "confetti",
+    "iOS",
+    "konfetti",
+    "particles"
+  ],
+  "homepage": "https://github.com/sitefinitysteve/nativescript-confettiview",
+  "bugs": {
+    "url": "https://github.com/sitefinitysteve/nativescript-confettiview/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Steve McNiven-Scott"
+  },
+  "contributors": [
+    {
+      "name": "Sean Perkins",
+      "email": "sean@meetmaestro.com"
+    },
+    {
+      "name": "Nathan Walker",
+      "email": "walkerrunpdx@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sitefinitysteve/nativescript-confettiview.git"
+  },
+  "main": "index",
+  "typings": "index.d.ts",
+  "bootstrapper": "@nativescript/plugin-seed",
+  "nativescript": {
+    "platforms": {
+      "ios": "9.0.0",
+      "android": "9.0.0"
+    }
+  },
+  "readmeFilename": "README.md"
+}

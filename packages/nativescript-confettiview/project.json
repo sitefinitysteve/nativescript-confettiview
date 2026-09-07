@@ -1,0 +1,64 @@
+{
+  "name": "nativescript-confettiview",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/nativescript-confettiview",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "build": {
+      "options": {
+        "outputPath": "dist/packages/nativescript-confettiview",
+        "tsConfig": "packages/nativescript-confettiview/tsconfig.json",
+        "packageJson": "packages/nativescript-confettiview/package.json",
+        "main": "packages/nativescript-confettiview/index.d.ts",
+        "assets": [
+          "packages/nativescript-confettiview/*.md",
+          "packages/nativescript-confettiview/index.d.ts",
+          "LICENSE",
+          {
+            "glob": "**/*",
+            "input": "packages/nativescript-confettiview/platforms/",
+            "output": "./platforms/"
+          }
+        ]
+      },
+      "executor": "@nx/js:tsc",
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "dependencies": true
+        }
+      ]
+    },
+    "build.all": {
+      "outputs": ["{workspaceRoot}/dist/packages/nativescript-confettiview"],
+      "options": {
+        "commands": ["node tools/scripts/build-finish.ts nativescript-confettiview"],
+        "parallel": false
+      },
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "dependencies": true
+        },
+        {
+          "target": "build"
+        }
+      ]
+    },
+    "focus": {
+      "options": {
+        "commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-confettiview"],
+        "parallel": false
+      },
+      "executor": "nx:run-commands"
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "oxlint packages/nativescript-confettiview"
+      }
+    }
+  }
+}

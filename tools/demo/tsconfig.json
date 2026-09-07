@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@nativescript/*": ["../../packages/*"],
+      "nativescript-confettiview": ["../../packages/nativescript-confettiview/index.d.ts"]
+    }
+  }
+}
