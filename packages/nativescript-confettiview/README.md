@@ -128,8 +128,8 @@ the view → the object passed to `start()`.
 | --- | --- | --- |
 | `mode` | `'rain' \| 'burst' \| 'explode' \| 'stream'` | Preset to build on. |
 | `colors` | `(string \| Color)[]` | Particles pick one at random. |
-| `shapes` | `('square' \| 'circle' \| 'rectangle')[]` | Particles pick one at random. |
-| `sizes` | `number[]` | Particle sizes in DIPs. |
+| `shapes` | `('square' \| 'circle' \| 'rectangle')[]` | Particles pick one at random. Defaults to `['rectangle', 'rectangle', 'square']` — paper strips with squares mixed in. Repeating an entry weights it. |
+| `sizes` | `number[]` | Particle sizes in DIPs. Defaults to `[7, 10, 13]`. A `rectangle` is this wide and 40% as tall. |
 | `angle` | `number` | Direction in degrees: `0` right, `90` down, `180` left, `270` up. |
 | `spread` | `number` | Width of the spray in degrees. `1` is a line, `360` a full circle. |
 | `speed` / `maxSpeed` | `number` | Launch speed. When `maxSpeed` is higher, each particle picks a random speed between the two. |

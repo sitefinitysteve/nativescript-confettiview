@@ -21,12 +21,25 @@ export class DemoSharedNativescriptConfettiview extends DemoSharedBase {
     position: { x: 0.5, y: 0.45 },
   };
 
+  /**
+   * Clear whatever is on screen before starting something new.
+   *
+   * `start()` deliberately layers — that is how [[playCannons]] fires two
+   * parties at once — but in a demo where every button can be hammered, the
+   * emitters would pile up and tank the frame rate. Each button therefore
+   * replaces the current effect rather than adding to it.
+   */
+  private replace(view: ConfettiView, play: () => void): void {
+    view.reset();
+    play();
+  }
+
   play(view: ConfettiView, mode: ConfettiMode): void {
-    view.start({ mode });
+    this.replace(view, () => view.start({ mode }));
   }
 
   playCustom(view: ConfettiView): void {
-    view.start(DemoSharedNativescriptConfettiview.customParty);
+    this.replace(view, () => view.start(DemoSharedNativescriptConfettiview.customParty));
   }
 
   /**
@@ -34,27 +47,29 @@ export class DemoSharedNativescriptConfettiview extends DemoSharedBase {
    * low per cannon — the two overlap, so the on-screen density is the sum.
    */
   playCannons(view: ConfettiView): void {
-    view.start({
-      mode: 'burst',
-      angle: 300,
-      spread: 55,
-      position: { x: 0, y: 1 },
-      count: 40,
-      duration: 450,
-    });
-    view.start({
-      mode: 'burst',
-      angle: 240,
-      spread: 55,
-      position: { x: 1, y: 1 },
-      count: 40,
-      duration: 450,
+    this.replace(view, () => {
+      view.start({
+        mode: 'burst',
+        angle: 300,
+        spread: 55,
+        position: { x: 0, y: 1 },
+        count: 40,
+        duration: 450,
+      });
+      view.start({
+        mode: 'burst',
+        angle: 240,
+        spread: 55,
+        position: { x: 1, y: 1 },
+        count: 40,
+        duration: 450,
+      });
     });
   }
 
   /** `duration: 0` opts out of the preset's bounded emission and runs until stopped. */
   playEndless(view: ConfettiView): void {
-    view.start({ mode: 'rain', duration: 0 });
+    this.replace(view, () => view.start({ mode: 'rain', duration: 0 }));
   }
 
   stop(view: ConfettiView): void {

@@ -82,8 +82,10 @@ export const DEFAULT_CONFETTI_COLORS = ['#fce18a', '#ff726d', '#f4306d', '#b48de
 const BASE_OPTIONS: ResolvedConfettiOptions = {
   mode: 'rain',
   colors: DEFAULT_CONFETTI_COLORS.map((c) => new Color(c)),
-  shapes: ['square', 'circle'],
-  sizes: [6, 8, 10],
+  // Real confetti is mostly paper strips, so lead with rectangles and mix in
+  // squares for variety. Pass `shapes` to override.
+  shapes: ['rectangle', 'rectangle', 'square'],
+  sizes: [7, 10, 13],
   angle: 90,
   spread: 360,
   speed: 0,
@@ -109,7 +111,7 @@ export const CONFETTI_PRESETS: Record<ConfettiMode, ConfettiOptions> = {
     speed: 0,
     maxSpeed: 15,
     position: { x: 0, y: 0, toX: 1, toY: 0 },
-    emissionRate: 100,
+    emissionRate: 65,
     // Bounded on purpose. An endless default would keep a render loop alive
     // until the caller remembered to call stop(); pass `duration: 0` to opt in.
     duration: 3000,
