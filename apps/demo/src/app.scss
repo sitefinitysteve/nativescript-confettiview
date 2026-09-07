@@ -1,0 +1,62 @@
+// Deliberately dependency-free so the demo builds with nothing but
+// @nativescript/core installed. That means none of the nativescript-theme-core
+// utility classes exist here, so the few the pages use are defined below.
+
+$accent: #f4306d;
+
+.p-20 {
+  padding: 20;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.page {
+  background-color: #14121a;
+  color: #f4f2f8;
+  font-size: 16;
+}
+
+.action-bar {
+  background-color: #14121a;
+  color: #f4f2f8;
+}
+
+.btn {
+  background-color: $accent;
+  color: #ffffff;
+  font-size: 16;
+  font-weight: 600;
+  padding: 12 18;
+  margin: 6 0;
+  border-radius: 12;
+  text-transform: none;
+}
+
+.btn-secondary {
+  background-color: #2a2635;
+  color: #f4f2f8;
+}
+
+.title {
+  font-size: 28;
+  font-weight: 700;
+  // Large text needs headroom or the ascenders clip against the line box.
+  padding-top: 6;
+  margin-bottom: 4;
+}
+
+.subtitle {
+  font-size: 14;
+  color: #a49db8;
+  margin-bottom: 16;
+}
+
+.status {
+  font-size: 13;
+  color: #a49db8;
+  margin-top: 12;
+  margin-bottom: 24;
+  text-align: center;
+}

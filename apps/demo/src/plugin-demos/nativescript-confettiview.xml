@@ -1,0 +1,42 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:cf="nativescript-confettiview" navigatingTo="navigatingTo" navigatedFrom="navigatedFrom" class="page">
+  <Page.actionBar>
+    <ActionBar title="ConfettiView" icon="" class="action-bar"/>
+  </Page.actionBar>
+
+  <!-- The ConfettiView is the last child so it paints over everything, and it
+       never intercepts touches, so the buttons underneath still work. -->
+  <GridLayout rows="auto, *">
+    <ScrollView row="1" col="0">
+      <StackLayout class="p-20">
+        <Label text="Presets" class="title"/>
+        <Label text="Same numbers drive both platforms." class="subtitle" textWrap="true"/>
+
+        <Button text="Rain" tap="{{ onRain }}" class="btn"/>
+        <Button text="Burst" tap="{{ onBurst }}" class="btn"/>
+        <Button text="Explode" tap="{{ onExplode }}" class="btn"/>
+        <Button text="Stream" tap="{{ onStream }}" class="btn"/>
+
+        <Label text="Options API" class="title" marginTop="20"/>
+        <Label text="Overrides passed straight to start()." class="subtitle" textWrap="true"/>
+
+        <Button text="Custom party" tap="{{ onCustom }}" class="btn btn-secondary"/>
+        <Button text="Two cannons" tap="{{ onCannons }}" class="btn btn-secondary"/>
+
+        <Label text="Control" class="title" marginTop="20"/>
+        <Label text="Presets stop on their own; this one runs until you stop it." class="subtitle" textWrap="true"/>
+        <Button text="Endless rain" tap="{{ onEndless }}" class="btn btn-secondary"/>
+        <Button text="Stop (let it fall)" tap="{{ onStop }}" class="btn btn-secondary"/>
+        <Button text="Reset (clear now)" tap="{{ onReset }}" class="btn btn-secondary"/>
+
+        <Label text="{{ status }}" class="status" textWrap="true"/>
+      </StackLayout>
+    </ScrollView>
+
+    <cf:ConfettiView
+      id="confetti"
+      row="0"
+      rowSpan="2"
+      confettiStart="{{ onConfettiStart }}"
+      confettiEnd="{{ onConfettiEnd }}"/>
+  </GridLayout>
+</Page>

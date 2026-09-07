@@ -1,13 +1,51 @@
-*.js
-*.js.map
-*.log
-demo/app/*.js
-demo/*.d.ts
-demo/platforms
-demo/node_modules
-demo-ng/app/*.js
-demo-ng/*.d.ts
-demo-ng/platforms
-demo-ng/node_modules
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+# NativeScript build output
+platforms/
+hooks/
+apps/**/*.js
+!apps/**/webpack.config.js
+
+# dependencies
 node_modules
-package-lock.json
+yarn.lock
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+*.tgz
+
+.nx/cache
+.nx/workspace-data
